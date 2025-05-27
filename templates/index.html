@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Airline Customer Review</title>
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Airline Customer Review</h1>
+      <p>Help us to improve your flight experience by just sharing few seconds feedback. Your insights will help us to improve your airline experience.</p>
+    </header>
+
+    <main>
+      <form id="reviewForm" action="{% url 'predictor' %}" method ="POST">
+        {% csrf_token %}
+        <!-- Airline Selection -->
+        <div class="form-group">
+          <label for="airline">Airline</label>
+          <select id="airline" name="airline"  required>
+              <option value="">Select an Airline</option> <!-- Default Option -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="traveller_type">Traveller type</label>
+          <select id="traveller_type" name="traveller_type" required>
+            <option value="" disabled selected>Select a Traveller Type</option>
+            <option value="Business">Business</option>
+            <option value="Family Leisure">Family Leisure</option>
+            <option value="Solo Leisure">Solo Leisure</option>
+            <option value="Couple Leisure">Couple Leisure</option>
+            
+            
+          </select>
+          
+        </div>
+
+        <div class="form-group">
+          <label for="cabin">Class of Journey</label>
+          <select id="cabin" name="cabin" required>
+            <option value="" disabled selected>Select a cabin class</option>
+            <option value="Economy Class">Economy Class</option>
+            <option value="Business Class">Business Class</option>
+            <option value="Premium Economy">Premium Economy</option>
+            <option value="First Class">First Class</option>
+            
+          </select>
+          
+        </div>
+
+        <!-- Rating Categories -->
+        <div class="form-group">
+          <label>Overall Experience</label>
+          <div class="rating" data-rating-name="overall">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="overall" value="0" required  >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Cabin Service</label>
+          <div class="rating" data-rating-name="cabin_service">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="cabin_service" value="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Seat Comfort</label>
+          <div class="rating" data-rating-name="seat_comfort">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="seat_comfort" value="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Food & Beverages</label>
+          <div class="rating" data-rating-name="food_bev">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="food_bev" value="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Entertainment</label>
+          <div class="rating" data-rating-name="entertainment">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="entertainment" value="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ground Service</label>
+          <div class="rating" data-rating-name="ground_service">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="ground_service" value="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Value for Money</label>
+          <div class="rating" data-rating-name="value_for_money">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+            <span class="rating-text">Select rating</span>
+            <input type="hidden" name="value_for_money" value="0" required>
+          </div>
+        </div>
+
+        <!-- Review Text Area -->
+        <div class="form-group">
+          <label for="customer_review">Your Review</label>
+          <textarea id="customer_review" name="customer_review" rows="3" placeholder="Please share your detailed experience with the airline..." required></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group button-group">
+          <button type="submit" id="predictButton">
+            <span class="button-text">Predict Recommendation</span>
+            <!-- <span class="spinner" hidden>
+              <i class="fas fa-spinner fa-spin"></i> Processing...
+            </span> -->
+          </button>
+          
+        </div>
+      </form>
+    </main>
+
+       <!-- Prediction Result
+    <div id="prediction-result" class="hidden">
+      <div class="result-content">
+        <h3>Prediction Result</h3>
+        <p id="prediction-message"></p>
+        <p id="prediction-percentage"></p>
+        <button id="close-prediction">Close</button>
+      </div> 
+    </div>-->
+  </div>    
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Airline Referral Prediction System. All rights reserved.</p>
+      <p>Helping airlines to improve customer satisfaction and recommendation rates.</p>
+    </div>
+  </footer>
+
+  <script>
+   const airLine = ['Turkish Airlines', 'Qatar Airways', 'Emirates', 'Lufthansa',
+       'KLM Royal Dutch Airlines', 'Virgin America', 'American Airlines',
+       'Delta Air Lines', 'Southwest Airlines', 'United Airlines',
+       'Jetblue Airways', 'Aegean Airlines', 'Aeroflot Russian Airlines',
+       'Aeromexico', 'Air Canada', 'Air New Zealand', 'Alitalia',
+       'AirAsia', 'Asiana Airlines', 'Avianca', 'Austrian Airlines',
+       'British Airways', 'Brussels Airlines', 'China Eastern Airlines',
+       'China Southern Airlines', 'Copa Airlines', 'Ethiopian Airlines',
+       'Egyptair', 'Finnair', 'Iberia', 'ANA All Nippon Airways',
+       'easyJet', 'Korean Air', 'LATAM Airlines', 'LOT Polish Airlines',
+       'Qantas Airways', 'Air France', 'Etihad Airways',
+       'Pegasus Airlines', 'Royal Jordanian Airlines', 'Ryanair',
+       'South African Airways', 'Saudi Arabian Airlines', 'TAP Portugal',
+       'Eurowings', 'EVA Air', 'Royal Air Maroc', 'Singapore Airlines',
+       'SAS Scandinavian', 'Swiss Intl Air Lines', 'Thai Airways',
+       'Air India', 'Air Europa', 'Air Canada rouge', 'airBaltic',
+       'Air China', 'Cathay Pacific Airways', 'Wizz Air',
+       'Spirit Airlines', 'TAROM Romanian', 'Vueling Airlines',
+       'Sunwing Airlines', 'QantasLink', 'Bangkok Airways', 'flydubai',
+       'Garuda Indonesia', 'Germanwings', 'Frontier Airlines',
+       'Icelandair', 'IndiGo', 'Aer Lingus', 'Adria Airways',
+       'Air Arabia', 'Alaska Airlines', 'Tunisair', 'Norwegian',
+       'Thai Smile Airways', 'Gulf Air', 'Kuwait Airways', 'WOW air',
+       'Ukraine International']
+       const selectBox = document.getElementById('airline');
+
+       airLine.forEach(airline => {
+        let option = document.createElement("option");
+        option.value = airline;
+        option.textContent = airline;
+        selectBox.appendChild(option);
+    });
+    
+  </script>
+ <script src="static/script.js"></script> 
+</body>
+</html>
