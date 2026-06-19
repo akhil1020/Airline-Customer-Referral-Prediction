@@ -23,5 +23,8 @@ notebooks/.ipynb_checkpoints/
 # uv
 uv.lock
 
-# claude
+# coding agents
 .claude
+.agents
+
+
