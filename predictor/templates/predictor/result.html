@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% comment %} <link rel="stylesheet" href="" > {% endcomment %}
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      
+      body {
+        background-color: #f5f8fa;
+        color: #333;
+        line-height: 1.6;
+      }
+    
+      .output-box {
+
+        max-width: 400px;
+        margin:  200px auto; /* Centers horizontally */
+        padding: 20px;
+        align-items: center; /* Centers content vertically */
+        justify-content: center;
+        background-color:rgb(245,248,250);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        
+    }
+    .button1, h2, p{
+      justify-content: center;
+      text-align: center;
+    }
+    .button{
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    
+    button:active {
+      transform: scale(0.98);
+    }
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div class="output-box">
+      <h2>Prediction Result</h2>
+
+      {% if result == 1 %}
+      <p style="color: green; font-size: 18px;">✅ This customer will recommend the airline</p>
+      {% if probability %}<p style="color: #555;">Confidence: <strong>{{ probability }}%</strong></p>{% endif %}
+      {% elif result == 0 %}
+      <p style="color: #e74c3c; font-size: 18px;">❌ This customer will NOT recommend the airline</p>
+      {% if probability %}<p style="color: #555;">Confidence: <strong>{{ probability }}%</strong></p>{% endif %}
+      {% elif error %}
+      <p style="color: red"><strong>Error:</strong> {{ error }}</p>
+      {% endif %}
+
+
+        <br>
+        <div class="button1">
+        <a href="{% url 'index' %}"><button class="button">Go Back</button></a>
+        </div>
+      
+      
+
+      {% comment %} {% if result %}
+      <p>
+        The predicted airline customer referral is:
+        <strong>{{ result }}</strong>
+      </p>
+      {% elif error %}
+      <p style="color: red"><strong>Error:</strong> {{ error }}</p>
+      {% endif %}
+
+      <a href="{% url 'index' %}">Go Back</a> {% endcomment %}
+    </div>
+  </body>
+</html>

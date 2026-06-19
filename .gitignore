@@ -1,1 +1,27 @@
-/db.sqlite3
+# Django
+db.sqlite3
+*.pyc
+__pycache__/
+
+# Virtual environment
+.venv/
+
+# ML artifacts (large binary files)
+# models/*.pkl
+
+# Raw data
+# data/data.csv
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Environment
+.env
+.python-version
+
+# uv
+uv.lock
+
+# claude
+.claude
